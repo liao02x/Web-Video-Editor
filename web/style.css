@@ -44,6 +44,7 @@ input[type=checkbox]{
     resize:both;
     overflow:auto; /* something other than visible */
     padding:10px !important;
+    margin-inline: auto;
 }
 
 .hidden{
