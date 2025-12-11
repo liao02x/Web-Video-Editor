@@ -9,17 +9,18 @@ let time_start = 0;
 let time_end = 1;
 let crop = [null, null];
 let selected_file = null;
-const MAX_DIM = 1000;
 
 $(() => {
 	console.log('Loaded DOM.');
 
 	function formatPx(length) {
-		if (!length || typeof length !== 'number') return `${MAX_DIM}px`;
+		if (!length || typeof length !== 'number') return '100px';
 		return `${length}px`;
 	}
 
 	function updateVideoSize(size) {
+		const maxWidth = window.innerWidth;
+		const maxHeight = window.innerHeight - 300;
 		
 		if(!size || !size.w || !size.h){
 			$('#resizable').css({width: formatPx(), height: formatPx()});
@@ -27,8 +28,8 @@ $(() => {
 		}
 		let w = size.w;
 		let h = size.h;
-		// scale down so both width and height fit within MAX_DIM, keeping aspect ratio
-		const scale = Math.min(1, Math.min(MAX_DIM / w, MAX_DIM / h));
+		// scale down to fit viewport, keeping aspect ratio
+		const scale = Math.min(1, Math.min(maxWidth / w, maxHeight / h));
 		w = Math.round(w * scale);
 		h = Math.round(h * scale);
 		$('#resizable').css({width: formatPx(w), height: formatPx(h)});
